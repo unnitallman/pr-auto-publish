@@ -5,6 +5,26 @@ module GithubGraphql
         repository(owner: $owner, name:$repo) {
           pullRequest(number:$pull_number) {
             id
+            commits(last: 1) {
+              nodes {
+                commit {
+                  deployments(last:1){
+                    nodes {
+                      state
+                    }
+                  }
+                  statusCheckRollup{
+                    state
+                  }
+                  author {
+                    name
+                  }
+                  status {
+                    state
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -17,6 +37,14 @@ module GithubGraphql
       else
         response.data.repository.pull_request
       end
+    end
+
+    def self.ready_for_review?(owner, repo, pr_num)
+      pr = find(owner, repo, pr_num)  
+      checks_status     = pr.commits.nodes.first.commit.status.state
+      deployment_status = pr.commits.nodes.first.commit.deployments.nodes.first.state
+
+      checks_status == "SUCCESS" && deployment_status == "ACTIVE"
     end
   end
 end

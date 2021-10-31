@@ -1,13 +1,13 @@
-# pr-auto-merge
-A Github Action that automerges pull requests if all the required checks have passed.
+# pr-auto-publish
+A Github Action that automatically marks a Draft PR as Read-for-Review if one or more checks have passed. 
 
 
 ## Usage
 
-Create `.github/workflows/pr_auto_merge.yml` with the following content:
+Create `.github/workflows/pr_auto_publish.yml` with the following content:
 
 ```
-name: PR-automerge
+name: PR-autopublish
 
 on: 
   status:
@@ -19,11 +19,11 @@ jobs:
     name: Auto-merge
     runs-on: ubuntu-18.04
     steps:
-      - uses: bigbinary/pr-auto-merge@v1.0
-        if: contains(github.event.pull_request.labels.*.name, 'mergepr')
+      - uses: unnitallman/pr-auto-publish@v0.1
+        if: contains(github.event.pull_request.labels.*.name, 'makepr')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 ```
 
-Make sure create a token from [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new) and add to `GITHUB_TOKEN` variable in your repo's secrets. 
+Create a token from [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new) and add to `GITHUB_TOKEN` variable in your repo's secrets. 
