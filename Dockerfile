@@ -6,4 +6,4 @@ RUN gem install graphql-client
 WORKDIR /app
 COPY . .
 
-CMD ["ruby", "/app/auto_merge_pr.rb"]
+CMD ["ruby", "/app/auto_publish_pr.rb"]
