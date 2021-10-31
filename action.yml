@@ -1,0 +1,8 @@
+# Meta data for the action.
+
+name: 'Pull Request AutoMerge'
+author: 'unnitallman'
+description: 'A Github Action to merge a PR if a particular label is present'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
