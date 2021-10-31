@@ -3,6 +3,8 @@ require_relative 'src/github_graphql'
 require_relative 'src/pull_request'
 require_relative 'src/mark_pull_request_as_ready_for_review'
 
+p ENV
+
 client = Octokit::Client.new(access_token: ENV["GITHUB_TOKEN"])
 
 owner,repo = ENV["GITHUB_REPOSITORY"].split("/")
